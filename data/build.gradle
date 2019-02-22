@@ -39,8 +39,7 @@ dependencies {
 
     implementation config.okhttpLoggingInterceptor
 
-    api config.dagger
-    annotationProcessor config.daggerCompiler
+
 
     implementation config.cookie
 

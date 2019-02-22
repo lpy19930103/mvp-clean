@@ -60,7 +60,7 @@ ext {
             javaxInject             : "javax.inject:javax.inject:${dependVersion.javaxInjectVersion}",
             javaxAnnotation         : "javax.annotation:jsr250-api:${dependVersion.javaxAnnotationVersion}",
             gson                    : "com.google.code.gson:gson:${dependVersion.gson}",
-
+            material            : "com.google.android.material:material:${dependVersion.androidx}",
 
     ]
 

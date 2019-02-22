@@ -39,10 +39,11 @@ dependencies {
 
     implementation libs.butterknife
     annotationProcessor libs.butterknifeCompiler
-
+    api libs.dagger
+    annotationProcessor libs.daggerCompiler
     implementation libs.glide
     annotationProcessor libs.glideCompiler
-
+    implementation libs.material
     implementation libs.permission    //权限
     annotationProcessor libs.permissionCompiler
 

@@ -34,8 +34,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
             
             @Override
             public void onError(Throwable t) {
-                LogUtils.e(t.getMessage());
-                
+                mView.showError(t.getMessage());
             }
             
             @Override

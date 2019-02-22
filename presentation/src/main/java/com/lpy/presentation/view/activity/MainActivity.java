@@ -30,8 +30,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void showUser(UserInfo userInfo) {
         LogUtils.e(userInfo.toString());
-        
     }
+    
     
     @OnClick(R.id.login)
     public void login() {
