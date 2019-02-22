@@ -1,9 +1,9 @@
 package com.example.data;
 
-import com.ltdd.domin.modules.BasicResponse;
-import com.ltdd.data.api.HttpHelper;
-import com.ltdd.data.repository.LoginDataRepository;
-import com.ltdd.domin.repository.LoginRepository;
+import com.lpy.domin.modules.BasicResponse;
+import comlpy.data.api.HttpHelper;
+import comlpy.data.repository.LoginDataRepository;
+import com.lpy.domin.repository.LoginRepository;
 
 import org.junit.Test;
 
