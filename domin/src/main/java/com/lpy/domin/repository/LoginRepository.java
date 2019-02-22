@@ -1,9 +1,10 @@
 package com.lpy.domin.repository;
 
-import com.lpy.domin.modules.BasicResponse;
+import com.lpy.domin.entity.BasicResponse;
+import com.lpy.domin.entity.UserInfo;
 
 import io.reactivex.Flowable;
 
 public interface LoginRepository {
-    Flowable<BasicResponse> login(String memberAccount, String memberPwd);
+    Flowable<BasicResponse<UserInfo>> login(String memberAccount, String memberPwd);
 }

@@ -2,13 +2,13 @@ package comlpy.data.convert;
 
 
 import com.lpy.domin.constant.Constant;
-import com.lpy.domin.modules.BasicResponse;
+import com.lpy.domin.entity.BasicResponse;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 
-import androidx.annotation.NonNull;
+import io.reactivex.annotations.NonNull;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;

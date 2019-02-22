@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 
 
 import com.lpy.presentation.app.App;
-import com.lpy.presentation.di.component.DaggerFragmentComponent;
-import com.lpy.presentation.di.component.FragmentComponent;
-import com.lpy.presentation.di.module.FragmentModule;
+import com.lpy.presentation.injector.component.DaggerFragmentComponent;
+import com.lpy.presentation.injector.component.FragmentComponent;
+import com.lpy.presentation.injector.module.FragmentModule;
 import com.lpy.presentation.util.SnackbarUtil;
 
 import javax.inject.Inject;

@@ -1,12 +1,11 @@
 package com.lpy.presentation.base;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.lpy.presentation.app.App;
-import com.lpy.presentation.di.component.ActivityComponent;
-import com.lpy.presentation.di.component.DaggerActivityComponent;
-import com.lpy.presentation.di.module.ActivityModule;
+import com.lpy.presentation.injector.component.ActivityComponent;
+import com.lpy.presentation.injector.component.DaggerActivityComponent;
+import com.lpy.presentation.injector.module.ActivityModule;
 import com.lpy.presentation.util.SnackbarUtil;
 
 import javax.inject.Inject;
@@ -83,15 +82,6 @@ public abstract class BaseActivity<T extends IPresenter> extends AppCompatActivi
     }
     
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     protected ActivityComponent getActivityComponent() {
         return DaggerActivityComponent.builder()

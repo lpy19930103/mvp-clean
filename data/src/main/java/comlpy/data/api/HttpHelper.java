@@ -92,9 +92,9 @@ public class HttpHelper {
     }
     
     
-    public DownloadService getDownloadService(int taskId) {
+    public DownloadService getDownloadService(String host, int taskId) {
         return new Retrofit.Builder()
-                .baseUrl("https://www.baidu.com/")
+                .baseUrl(host)
                 .client(new OkHttpClient.Builder()
                         .addInterceptor(initLog())
                         .addNetworkInterceptor(new ProgressInterceptor(taskId))

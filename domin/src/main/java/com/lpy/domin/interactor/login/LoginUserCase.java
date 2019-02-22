@@ -1,7 +1,8 @@
 package com.lpy.domin.interactor.login;
 
 import com.lpy.domin.constant.Constant;
-import com.lpy.domin.modules.BasicResponse;
+import com.lpy.domin.entity.BasicResponse;
+import com.lpy.domin.entity.UserInfo;
 import com.lpy.domin.exception.ApiException;
 import com.lpy.domin.interactor.UseCase;
 import com.lpy.domin.repository.LoginRepository;
@@ -18,7 +19,7 @@ import io.reactivex.functions.Function;
  * @date 2019/2/22 11:22
  * @description 登录
  */
-public class LoginUserCase extends UseCase<BasicResponse, LoginUserCase.Params> {
+public class LoginUserCase extends UseCase<UserInfo, LoginUserCase.Params> {
     private final LoginRepository mLoginRepository;
     
     @Inject
@@ -27,22 +28,22 @@ public class LoginUserCase extends UseCase<BasicResponse, LoginUserCase.Params> 
     }
     
     @Override
-    public Flowable<BasicResponse> buildUseCaseObservable(Params params) {
+    public Flowable<UserInfo> buildUseCaseObservable(Params params) {
         return mLoginRepository.login(params.userName, params.userPwd)
-                .flatMap(new Function<BasicResponse, Publisher<BasicResponse>>() {
+                .flatMap(new Function<BasicResponse, Publisher<UserInfo>>() {
                     @Override
-                    public Publisher<BasicResponse> apply(BasicResponse basicResponse) throws Exception {
+                    public Publisher<UserInfo> apply(BasicResponse basicResponse) throws Exception {
                         return handleData(basicResponse);
                     }
                 });
     }
     
-    private Publisher<BasicResponse> handleData(BasicResponse basicResponse) {
+    private Publisher<UserInfo> handleData(BasicResponse<UserInfo> basicResponse) {
         if (basicResponse == null) {
             return Flowable.error(new ApiException(Constant.CODE_EMPTY, "server response body is null"));
         }
         if (basicResponse.code == Constant.CODE_SUCCESS) {
-            return Flowable.just(basicResponse);
+            return Flowable.just(basicResponse.data);
         } else {
             return Flowable.error(new ApiException(Constant.CODE_BIZ_ERROR, basicResponse.msg));
         }

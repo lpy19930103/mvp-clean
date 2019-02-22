@@ -1,41 +1,52 @@
 apply plugin: 'com.android.library'
-
+def configs = rootProject.ext.android //android配置
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion configs.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.appMinSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode rootProject.ext.versionCode
-        versionName rootProject.ext.versionName
-
+        minSdkVersion configs.minSdkVersion
+        targetSdkVersion configs.targetSdkVersion
+        versionCode configs.versionCode
+        versionName configs.versionName
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
+
+
 
 dependencies {
+
+    def config = rootProject.ext.dependencies //依赖库配置
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    api 'com.squareup.retrofit2:retrofit:2.5.0'
-    api 'com.squareup.okhttp3:okhttp:3.12.0'
-    api 'io.reactivex.rxjava2:rxjava:2.1.14-RC1'
-    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    api 'javax.inject:javax.inject:1'
-    api 'com.squareup.retrofit2:converter-gson:2.0.2'
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     api project(path: ':domin')
-    api 'com.blankj:utilcode:1.20.3'
+
+    compileOnly config.annotation
+
+    api config.retrofit
+
+    api config.retrofitConverterGson
+
+    api config.retrofitAdapterRxjava
+
+    api config.okhttp
+
+    implementation config.okhttpLoggingInterceptor
+
+    api config.dagger
+    annotationProcessor config.daggerCompiler
+
+    implementation config.cookie
+
+    api config.utilcode
+
+    api config.rxandroid
+
 }
+

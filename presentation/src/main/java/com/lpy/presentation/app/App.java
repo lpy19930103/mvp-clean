@@ -6,9 +6,9 @@ import android.app.Application;
 import android.content.Context;
 
 
-import com.lpy.presentation.di.component.AppComponent;
-import com.lpy.presentation.di.component.DaggerAppComponent;
-import com.lpy.presentation.di.module.AppModule;
+import com.lpy.presentation.injector.component.AppComponent;
+import com.lpy.presentation.injector.component.DaggerAppComponent;
+import com.lpy.presentation.injector.module.AppModule;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,12 +24,7 @@ public class App extends Application {
     private static App sInstance;
     public AppComponent mAppComponent;
     private Set<Activity> mActivities;
-    /**
-     * APP状态 0为正常初始化
-     * -1为被强杀
-     * 如果被强杀那么在主进程将被重新初始化为-1，所以必须重走流程经过Splash界面赋值为0
-     */
-    public static int sAppState;
+  
 
     public static synchronized App getInstance() {
         return sInstance;
@@ -39,15 +34,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         if (isMainProcess()) {
-            sAppState = -1;
             getAppComponent();
         }
     }
 
- 
-
-    
-  
 
     @Override
     protected void attachBaseContext(Context base) {
