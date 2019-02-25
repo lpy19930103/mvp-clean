@@ -22,7 +22,9 @@ import okhttp3.internal.http.HttpHeaders;
 import okio.Buffer;
 
 /**
- * 描    述：OkHttp拦截器，主要用于打印日志
+ * @author lpy
+ * @date 2019/2/25 11:16
+ * @description  打印日志
  */
 public class HttpLoggingInterceptor implements Interceptor {
     

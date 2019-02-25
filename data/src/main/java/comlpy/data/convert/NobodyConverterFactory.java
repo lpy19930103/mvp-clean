@@ -14,6 +14,11 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
+/**
+ * @author lpy
+ * @date 2019/2/25 11:16
+ * @description
+ */
 public class NobodyConverterFactory extends Converter.Factory {
     
     public static NobodyConverterFactory create() {

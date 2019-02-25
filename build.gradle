@@ -23,15 +23,3 @@ allprojects {
         maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
 }
-ext {
-    versionCode = 1
-    versionName = '1.0.0'
-
-    libMinSdkVersion = 16
-    appMinSdkVersion = 16
-    targetSdkVersion = 25
-    compileSdkVersion = 28
-    buildToolsVersion = '28.0.2'
-    supportVersion = '27.1.0'
-
-}

@@ -13,7 +13,11 @@ import javax.inject.Inject;
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-
+/**
+ * @author lpy
+ * @date 2019/2/25 11:13
+ * @description
+ */
 public class LoginDataRepository implements LoginRepository {
     
     private RestService restService;

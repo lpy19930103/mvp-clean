@@ -1,9 +1,7 @@
 package com.lpy.domin.interactor.login;
 
-import com.lpy.domin.constant.Constant;
 import com.lpy.domin.entity.BasicResponse;
 import com.lpy.domin.entity.UserInfo;
-import com.lpy.domin.exception.ApiException;
 import com.lpy.domin.interactor.UseCase;
 import com.lpy.domin.repository.LoginRepository;
 
@@ -30,23 +28,12 @@ public class LoginUserCase extends UseCase<UserInfo, LoginUserCase.Params> {
     @Override
     public Flowable<UserInfo> buildUseCaseObservable(Params params) {
         return mLoginRepository.login(params.userName, params.userPwd)
-                .flatMap(new Function<BasicResponse, Publisher<UserInfo>>() {
+                .flatMap(new Function<BasicResponse<UserInfo>, Publisher<UserInfo>>() {
                     @Override
-                    public Publisher<UserInfo> apply(BasicResponse basicResponse) throws Exception {
-                        return handleData(basicResponse);
+                    public Publisher<UserInfo> apply(BasicResponse<UserInfo> userInfoBasicResponse) throws Exception {
+                        return handleData(userInfoBasicResponse);
                     }
                 });
-    }
-    
-    private Publisher<UserInfo> handleData(BasicResponse<UserInfo> basicResponse) {
-        if (basicResponse == null) {
-            return Flowable.error(new ApiException(Constant.CODE_EMPTY, "server response body is null"));
-        }
-        if (basicResponse.code == Constant.CODE_SUCCESS) {
-            return Flowable.just(basicResponse.data);
-        } else {
-            return Flowable.error(new ApiException(Constant.CODE_BIZ_ERROR, basicResponse.msg));
-        }
     }
     
     public static final class Params {

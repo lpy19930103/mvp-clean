@@ -2,6 +2,8 @@
 package comlpy.data.api;
 
 
+import android.content.Context;
+
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 
@@ -42,7 +44,7 @@ public class HttpHelper {
     private OkHttpClient mOkHttpClient;
     
     @Inject
-    public HttpHelper() {
+    public HttpHelper(Context context) {
         if (mOkHttpClient == null) {
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             // 设置缓存 20M

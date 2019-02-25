@@ -1,5 +1,11 @@
 package com.lpy.domin.interactor;
 
+import com.lpy.domin.constant.Constant;
+import com.lpy.domin.entity.BasicResponse;
+import com.lpy.domin.exception.ApiException;
+
+import org.reactivestreams.Publisher;
+
 import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -68,6 +74,17 @@ public abstract class UseCase<T, Params> {
             throw new NullPointerException();
         } else {
             return reference;
+        }
+    }
+    
+    public Publisher<T> handleData(BasicResponse<T> basicResponse) {
+        if (basicResponse == null) {
+            return Flowable.error(new ApiException(Constant.CODE_EMPTY, "server response body is null"));
+        }
+        if (basicResponse.code == Constant.CODE_SUCCESS) {
+            return Flowable.just(basicResponse.data);
+        } else {
+            return Flowable.error(new ApiException(Constant.CODE_BIZ_ERROR, basicResponse.msg));
         }
     }
     
