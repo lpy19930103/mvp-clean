@@ -21,5 +21,8 @@ allprojects {
         }
         maven { url 'https://dl.bintray.com/jenly/maven' }
         maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
+        maven {
+            url "https://repo.eclipse.org/content/repositories/paho-snapshots/"
+        }
     }
 }

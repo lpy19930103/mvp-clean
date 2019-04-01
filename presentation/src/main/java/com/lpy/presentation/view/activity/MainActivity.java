@@ -1,7 +1,5 @@
 package com.lpy.presentation.view.activity;
 
-import android.os.Bundle;
-import android.widget.Button;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.example.presentation.R;

@@ -1,6 +1,5 @@
 package com.lpy.presentation.presenter;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.lpy.domin.entity.UserInfo;
 import com.lpy.domin.interactor.login.LoginUserCase;
 import com.lpy.presentation.base.BasePresenter;
@@ -13,6 +12,7 @@ import io.reactivex.subscribers.DisposableSubscriber;
 
 @ActivityScope
 public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
+    
     @Inject
     LoginUserCase mLoginUserCase;
     
