@@ -40,7 +40,7 @@
             </intent-filter>
         </activity> <!-- Mqtt Service -->
         <service android:name="org.eclipse.paho.android.service.MqttService"></service>
-        <service android:name="com.lpy.presentation.view.service.MyMqttService"></service>
+        <!--<service android:name="com.lpy.presentation.view.service.MyMqttService"></service>-->
     </application>
 
 </manifest>
