@@ -34,8 +34,8 @@ public class PahoExampleActivity extends AppCompatActivity {
     
     MqttAndroidClient mqttAndroidClient;
     
-    final String serverUri = "tcp://iot.eclipse.org:1883";
-//    final String serverUri = "tcp://192.168.0.5:1883";
+//    final String serverUri = "tcp://iot.eclipse.org:1883";
+    final String serverUri = "tcp://192.168.0.103:1883";
     
     String clientId = "ExampleAndroidClient";
     final String subscriptionTopic = "exampleAndroidTopic";
@@ -199,7 +199,7 @@ public class PahoExampleActivity extends AppCompatActivity {
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
                     // message Arrived!
-                    addToHistory("messageArrived:" + new String(message.getPayload()));
+                    addToHistory("messageArrived: " + new String(message.getPayload()));
                     LogUtils.e("Message: " + topic + " : " + new String(message.getPayload()));
                 }
             });
