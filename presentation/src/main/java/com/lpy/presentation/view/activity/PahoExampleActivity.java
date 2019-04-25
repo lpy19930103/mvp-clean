@@ -1,6 +1,10 @@
 package com.lpy.presentation.view.activity;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,6 +13,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.example.presentation.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.lpy.presentation.hook.BinderProxyHookHandler;
 import com.lpy.presentation.view.activity.adapter.HistoryAdapter;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -22,7 +27,11 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -47,6 +56,7 @@ public class PahoExampleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
+        hook();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         
@@ -264,6 +274,38 @@ public class PahoExampleActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         super.onDestroy();
+    }
+    
+    private void hook() {
+        final String CLIPBOARD_SERVICE = "clipboard";
+        try {
+            // 下面这一段的意思实际就是: ServiceManager.getService("clipboard");
+            // 只不过 ServiceManager这个类是@hide的
+            Class<?> serviceManager = Class.forName("android.os.ServiceManager");
+            Method getService = serviceManager.getDeclaredMethod("getService", String.class);
+            
+            // ServiceManager里面管理的原始的Clipboard Binder对象
+            // 一般来说这是一个Binder代理对象
+            IBinder rawBinder = (IBinder) getService.invoke(null, CLIPBOARD_SERVICE);
+            // Hook 掉这个Binder代理对象的 queryLocalInterface 方法
+            // 然后在 queryLocalInterface 返回一个IInterface对象, hook掉我们感兴趣的方法即可.
+            IBinder hookedBinder = (IBinder) Proxy.newProxyInstance(serviceManager.getClassLoader(),
+                    new Class<?>[]{IBinder.class},
+                    new BinderProxyHookHandler(rawBinder));
+            
+            // 把这个hook过的Binder代理对象放进ServiceManager的cache里面
+            // 以后查询的时候 会优先查询缓存里面的Binder, 这样就会使用被我们修改过的Binder了
+            Field cacheField = serviceManager.getDeclaredField("sCache");
+            cacheField.setAccessible(true);
+            Map<String, IBinder> cache = (Map) cacheField.get(null);
+            cache.put(CLIPBOARD_SERVICE, hookedBinder);
+            
+            ClipboardManager myClipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            Log.e("hook clipboard", myClipboard.getPrimaryClip().getItemAt(0).getText().toString()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     
 }

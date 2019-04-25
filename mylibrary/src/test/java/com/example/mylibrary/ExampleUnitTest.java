@@ -36,12 +36,19 @@ public class ExampleUnitTest {
         Person person = new Person("张三", new Person.Car("benz"));
         Person clone = person.clone();
         clone.getCar().setBrand("byd");
-        System.out.println(person.getName() + "  "+person.getCar().getBrand() + "   clone :  " + clone.getCar().getBrand());
+        System.out.println(person.getName() + "  " + person.getCar().getBrand() + "   clone :  " + clone.getCar().getBrand());
         
         Person person1 = new Person("李四", new Person.Car("benz"));
         Person clone1 = MyUtil.<Person>clone(person1);
         clone1.getCar().setBrand("bmw");
-        System.out.print(person1.getName() + "  "+person1.getCar().getBrand() + "   clone :  " + clone1.getCar().getBrand());
+        System.out.print(person1.getName() + "  " + person1.getCar().getBrand() + "   clone :  " + clone1.getCar().getBrand());
+    }
+    
+    @Test
+    public void test4() {
+        Integer a = 1111;
+        Integer b = 1111;
+        System.out.print(a == b);
     }
     
 }
@@ -98,6 +105,7 @@ class Person implements Cloneable, Serializable {
     }
     
     static class Car implements Serializable {
+        
         private String brand;
         
         public Car(String brand) {
