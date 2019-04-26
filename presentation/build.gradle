@@ -38,6 +38,9 @@ dependencies {
     implementation libs.zxing    //二维码
 
     implementation libs.butterknife
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
+    implementation 'com.google.android.material:material:1.0.0-beta01'
     annotationProcessor libs.butterknifeCompiler
     api libs.dagger
     annotationProcessor libs.daggerCompiler
