@@ -8,6 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import androidx.annotation.ArrayRes;
+
 import static org.junit.Assert.*;
 
 /**
@@ -51,6 +53,45 @@ public class ExampleUnitTest {
         System.out.print(a == b);
     }
     
+    @Test
+    public void test5() {
+        int[] array = {1, 4, 3, 2, 6, 5, 9, 7, 2, 8};
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array.length - 1; j++) {
+                int temp = array[j];
+                if (array[j] > array[j + 1]) {
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+            }
+        }
+        for (Integer i : array) {
+            System.out.print(i);
+        }
+    }
+    
+    @Test
+    public void test6() {//选择
+        int[] array = {1, 4, 3, 2, 6, 5, 9, 7, 2, 8};
+        for (int i = 0; i < array.length - 1; i++) {
+            int k = i;
+            for (int j = k + 1; j < array.length; j++) {
+                if (array[k] > array[j]) {
+                    k = j;
+                }
+            }
+            if (i != k) {
+                int temp = array[i];
+                array[i] = array[k];
+                array[k] = temp;
+            }
+        }
+        for (Integer i : array) {
+            System.out.print(i);
+        }
+    }
+    
+  
 }
 
 class MyUtil {
